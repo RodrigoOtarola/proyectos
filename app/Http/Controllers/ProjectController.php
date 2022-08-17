@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SaveProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
 
@@ -35,12 +36,9 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SaveProjectRequest $request)
     {
-        Project::create([
-            'title'=>request('title'),
-            'description'=>request('description')
-        ]);
+        Project::create($request->validated());
 
         return redirect()->route('projects.index');
     }
@@ -51,11 +49,11 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Project $project)
     {
-        $project = Project::findOrFail($id);
+        //$project = Project::findOrFail($project);
 
-        return view('projects.show',compact('project'));
+        return view('projects.show', ['project' => $project]);
     }
 
     /**
@@ -64,9 +62,9 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Project $project)
     {
-        //
+        return view('projects.edit', ['project' => $project]);
     }
 
     /**
@@ -76,9 +74,11 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Project $project, SaveProjectRequest $request)
     {
-        //
+        $project->update($request->validated());
+
+        return redirect()->route('projects.show',$project);
     }
 
     /**

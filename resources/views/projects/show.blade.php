@@ -10,4 +10,6 @@
 
     <p>{{$project->created_at->diffForHumans()}}</p>
 
+    <a href="{{route('projects.edit', $project)}}">Editar</a>
+
 @endsection
