@@ -10,15 +10,9 @@
 
     <form action="{{route('projects.store')}}" method="post">
         @csrf
-        <label>Título del proyecto:
-            <input type="text" name="title">
-        </label><br>
 
-        <label>Descripción del proyecto:
-            <textarea name="description"></textarea>
-        </label><br><br>
+        @include('projects._form',['btnText'=>'Guardar'])
 
-        <button>Guardar</button>
     </form>
 
 @endsection

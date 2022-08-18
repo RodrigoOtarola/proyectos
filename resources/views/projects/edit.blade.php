@@ -4,14 +4,6 @@
     @csrf
     @method('PUT')
 
-    <label>Título del proyecto:
-        <input type="text" name="title" value="{{old('title',$project->title)}}">
-    </label><br>
-
-    <label>Descripción del proyecto:
-        <textarea name="description">{{old('title',$project->description)}}</textarea>
-    </label><br><br>
-
-    <button>Actualizar</button>
+    @include('projects._form',['btnText'=>'Actualizar'])
 
 </form>

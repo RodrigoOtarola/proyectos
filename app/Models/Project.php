@@ -11,8 +11,8 @@ class Project extends Model
 
     protected $fillable = ['title','description'];
 
-    public function getRouteKeyName()
-    {
-        return 'title';
-    }
+//    public function getRouteKeyName()
+//    {
+//        return 'title';
+//    }
 }

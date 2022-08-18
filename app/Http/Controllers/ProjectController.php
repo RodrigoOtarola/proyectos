@@ -27,7 +27,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('projects.create');
+        return view('projects.create',[
+            'project'=>new Project
+        ]);
     }
 
     /**
@@ -49,9 +51,9 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show($id)
     {
-        //$project = Project::findOrFail($project);
+        $project = Project::findOrFail($id);
 
         return view('projects.show', ['project' => $project]);
     }
