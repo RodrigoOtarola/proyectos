@@ -4,6 +4,7 @@
 
 @section('container')
     <h2>Hola desde portfolio</h2>
+
     <ul>
         @forelse($projects as $project)
             <li><a href="{{route('projects.show', $project->id)}}">{{ $project->title}}</a></li>

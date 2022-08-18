@@ -5,7 +5,9 @@
 @section('container')
 
     <h2>Hola desde Contact</h2>
+
     @include('validaciones.error')
+
     <form action="{{route('contact')}}" method="post">
         @csrf
         <input type="text" name="name" placeholder="Nombre"><br>
