@@ -10,6 +10,8 @@
 
     <p>{{$project->created_at->diffForHumans()}}</p>
 
+    @auth()
+
     <a href="{{route('projects.edit', $project)}}">Editar</a>
 
     <form action="{{route('projects.destroy',$project)}}" method="POST">
@@ -17,5 +19,7 @@
         @method('DELETE')
         <button>Eliminar</button>
     </form>
+
+    @endauth()
 
 @endsection

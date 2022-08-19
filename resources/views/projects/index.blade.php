@@ -3,7 +3,11 @@
 @section('title', 'Project')
 
 @section('container')
-    <h2>Hola desde portfolio</h2>
+    <h2>Hola desde portafolio</h2>
+
+    @auth()
+        <button><a href="{{route('projects.create')}}">Crear proyecto.</a></button>
+    @endauth
 
     <ul>
         @forelse($projects as $project)

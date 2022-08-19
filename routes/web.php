@@ -23,4 +23,7 @@ Route::view('/contact','contact')->name('contact');
 
 Route::post('contact',[\App\Http\Controllers\MessageController::class,'store']);
 
-Auth::routes();
+//Para ocultar view register.
+Auth::routes(['register'=>false]);
+
+Route::get('/logout',[\App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');
