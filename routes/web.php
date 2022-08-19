@@ -22,3 +22,5 @@ Route::resource('projects','\App\Http\Controllers\ProjectController');
 Route::view('/contact','contact')->name('contact');
 
 Route::post('contact',[\App\Http\Controllers\MessageController::class,'store']);
+
+Auth::routes();

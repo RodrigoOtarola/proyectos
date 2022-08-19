@@ -4,4 +4,5 @@
 
 @section('container')
     <h2>Hola desde home</h2>
+    {{auth()->user()->name}}
 @endsection
