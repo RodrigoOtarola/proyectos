@@ -72,7 +72,7 @@
                 </span>
                         @enderror
                     </div>
-                    <button class="btn btn-primary btn-block btn-lg ">Enviar</button>
+                    <button class="btn btn-primary w-100 btn-lg ">Enviar</button>
                 </form>
             </div>
         </div>
