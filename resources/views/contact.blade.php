@@ -4,7 +4,7 @@
 
 @section('container')
     &nbsp;
-    <div class="container">
+    <div class="container w-75">
         <div class="row">
             <div class="col-s12 col-sm-10 col-lg-12 mx-auto">
 
@@ -12,7 +12,7 @@
 
                 <form action="{{route('contact')}}" method="post" class="bg-white shadow rounded py-3 px-4">
                     @csrf
-                    <h2 class="display-4">Formulario</h2>
+                    <h3 class="display-4">Formulario:</h3>
                     <div class="form-group">
                         <label for="name">Nombre</label>
                         <input class="form-control bg-light shadow-sm

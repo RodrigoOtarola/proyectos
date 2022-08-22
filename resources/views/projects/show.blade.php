@@ -4,22 +4,33 @@
 
 @section('container')
 
-    <h2>{{$project->title}}</h2>
+    <div class="container w-75">
+        <div class="bg-white p-5 shadow rounded">
 
-    <p>{{$project->description}}</p>
+            <h2>{{$project->title}}</h2>
 
-    <p>{{$project->created_at->diffForHumans()}}</p>
+            <p class="text-secondary">{{$project->description}}</p>
 
-    @auth()
+            <p class="text-black-50">{{$project->created_at->diffForHumans()}}</p>
 
-    <a href="{{route('projects.edit', $project)}}">Editar</a>
-
-    <form action="{{route('projects.destroy',$project)}}" method="POST">
-        @csrf
-        @method('DELETE')
-        <button>Eliminar</button>
-    </form>
-
-    @endauth()
-
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="{{route('projects.index')}}">Regresar</a>
+                @auth()
+                    <div class="btn-group btn-group-sm">
+                        <a href="{{route('projects.edit', $project)}}" class="btn btn-warning">
+                            Editar
+                        </a>
+                        <a href="#" onclick="document.getElementById('delete-project').onsubmit()"
+                           class="btn btn-danger">
+                            Eliminar
+                        </a>
+                    </div>
+                    <form action="{{route('projects.destroy',$project)}}" method="POST" class="d-none">
+                        @csrf
+                        @method('DELETE')
+                    </form>
+                @endauth()
+            </div>
+        </div>
+    </div>
 @endsection

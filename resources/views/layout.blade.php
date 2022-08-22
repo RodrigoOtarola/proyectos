@@ -12,7 +12,7 @@
     <script src="{{mix('js/app.js')}}" defer></script>
 
     <style>
-        .active a {
+        a {
             color: red;
             text-decoration: none;
         }
@@ -22,13 +22,13 @@
     </style>
 </head>
 <body>
-<div id="app" class="d-flex flex-column h-screen justify-content-between bg-warning">
+<div id="app" class="d-flex flex-column h-screen justify-content-between">
     <header>
         @include('partials.nav')
 
         @include('partials.session-status')
     </header>
-    <main>
+    <main class="py-3">
         @yield('container')
         <br>
     </main>
