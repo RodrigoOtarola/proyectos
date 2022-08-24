@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Event\ProjectSaved;
 use App\Http\Requests\SaveProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
@@ -55,13 +56,15 @@ class ProjectController extends Controller
 
         $project->save();
 
-        //Optimizar imagen, storage_path para la ruta de la foto.
-        $image = Image::make(Storage::get($project->image))
-            ->widen(600)
-            ->limitColors(255)
-            ->encode();
+//        //Optimizar imagen, storage_path para la ruta de la foto.
+//        $image = Image::make(Storage::get($project->image))
+//            ->widen(600)
+//            ->limitColors(255)
+//            ->encode();
+//
+//        Storage::put($project->image,(string)$image);
 
-        Storage::put($project->image,(string)$image);
+        ProjectSaved::dispatch($project);
 
 
         return redirect()->route('projects.index')->with('Proyecto creado con exito');
@@ -113,13 +116,15 @@ class ProjectController extends Controller
 
             $project->save();
 
-            //Optimizar imagen, storage_path para la ruta de la foto.
-            $image = Image::make(Storage::get($project->image))
-                ->widen(600)
-                ->limitColors(255)
-                ->encode();
-
-            Storage::put($project->image,(string)$image);
+//            //Optimizar imagen, storage_path para la ruta de la foto.
+//            $image = Image::make(Storage::get($project->image))
+//                ->widen(600)
+//                ->limitColors(255)
+//                ->encode();
+//
+//            Storage::put($project->image,(string)$image);
+//
+            ProjectSaved::dispatch($project);
 
         } else {
             //Para no actualizar la foto
