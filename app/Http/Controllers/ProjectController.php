@@ -6,6 +6,7 @@ use App\Http\Requests\SaveProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class ProjectController extends Controller
 {
@@ -54,6 +55,14 @@ class ProjectController extends Controller
 
         $project->save();
 
+        //Optimizar imagen, storage_path para la ruta de la foto.
+        $image = Image::make(Storage::get($project->image))
+            ->widen(600)
+            ->limitColors(255)
+            ->encode();
+
+        Storage::put($project->image,(string)$image);
+
 
         return redirect()->route('projects.index')->with('Proyecto creado con exito');
     }
@@ -69,6 +78,7 @@ class ProjectController extends Controller
         $project = Project::findOrFail($id);
 
         return view('projects.show', ['project' => $project]);
+
     }
 
     /**
@@ -102,6 +112,14 @@ class ProjectController extends Controller
             $project->image = $request->file('image')->store('images');
 
             $project->save();
+
+            //Optimizar imagen, storage_path para la ruta de la foto.
+            $image = Image::make(Storage::get($project->image))
+                ->widen(600)
+                ->limitColors(255)
+                ->encode();
+
+            Storage::put($project->image,(string)$image);
 
         } else {
             //Para no actualizar la foto
