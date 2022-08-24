@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SaveProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('auth')->except('index','show');
+        $this->middleware('auth')->except('index', 'show');
     }
 
     /**
@@ -21,9 +22,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::get();
-
-        return view('projects.index',compact('projects'));
+        return view('projects.index', [
+            'projects' => Project::latest()->paginate()
+        ]);
     }
 
     /**
@@ -33,20 +34,26 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('projects.create',[
-            'project'=>new Project
+        return view('projects.create', [
+            'project' => new Project
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(SaveProjectRequest $request)
     {
-        Project::create($request->validated());
+        $project = new Project($request->validated());
+
+        //Mover imagen de directorio temporal a carpeta del server
+        $project->image = $request->file('image')->store('images');
+
+        $project->save();
+
 
         return redirect()->route('projects.index')->with('Proyecto creado con exito');
     }
@@ -54,7 +61,7 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -67,7 +74,7 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Project $project)
@@ -78,27 +85,44 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Project $project, SaveProjectRequest $request)
     {
-        $project->update($request->validated());
+        if ($request->hasFile('image')) {
 
-        return redirect()->route('projects.show',$project)->with('status','Proyecto actualizado con exito');
+            //Para eliminar imagen anterior si, se actualiza imagen.
+
+            Storage::delete($project->image);
+
+            $project->fill($request->validated());
+
+            $project->image = $request->file('image')->store('images');
+
+            $project->save();
+
+        } else {
+            //Para no actualizar la foto
+            $project->update(array_filter($request->validated()));
+        }
+        return redirect()->route('projects.show', $project)
+            ->with('status', 'El proyecto fue actualizado con éxito.');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Project $project)
     {
-        Project::destroy($id);
+        Storage::delete($project->image);
 
-        return redirect()->route('projects.index')->with('status','Proyecto eliminado con exito');
+        $project->delete();
+
+        return redirect()->route('projects.index')->with('status', 'Proyecto eliminado con exito');
     }
 }

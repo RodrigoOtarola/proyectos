@@ -24,6 +24,8 @@ class SaveProjectRequest extends FormRequest
     public function rules()
     {
         return [
+            //para subir png, jpeg, bmp, gif, svg o webp, con mime:jpeg,png se puede pasar los tipos de formato.
+            'image'=>[$this->route('project') ? 'nullable' : 'required','image','dimensions:min_width=300,height:300','max:2000'],
             'title'=> 'required',
             'description'=>'required'
         ];

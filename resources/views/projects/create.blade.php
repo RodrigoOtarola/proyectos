@@ -10,7 +10,7 @@
                 @include('validaciones.error')
 
                 <form class="bg-white py-3 px-3 shadow-sm rounded"
-                      action="{{route('projects.store')}}" method="post">
+                      action="{{route('projects.store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <h3 class="display-4">Nuevo proyecto:</h3>
                     <hr>
