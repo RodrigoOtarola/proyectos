@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+
+    //Relacion modelo projects 1:n, una categoria puede tener muchos proyectos
+    public function projects(){
+        return $this->hasMany(Category::class);
+    }
 }
