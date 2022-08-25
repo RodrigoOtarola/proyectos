@@ -28,9 +28,14 @@ class OptimizeProjectImage implements ShouldQueue
      */
     public function handle(ProjectSaved $event)
     {
+
+        //Probar failed-job
+        //throw new \Exception("Error procesing image",1);
+
         //Optimizar imagen, storage_path para la ruta de la foto.
         $image = Image::make(Storage::get($event->project->image))
-            ->widen(600)
+            ->widen(300)
+            ->heighten(300)
             ->limitColors(255)
             ->encode();
 
