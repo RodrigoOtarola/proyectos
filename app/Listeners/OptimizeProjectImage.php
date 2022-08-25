@@ -15,15 +15,9 @@ class OptimizeProjectImage
      *
      * @return void
      */
-    public function __construct(ProjectSaved $event)
+    public function __construct()
     {
-        //Optimizar imagen, storage_path para la ruta de la foto.
-        $image = Image::make(Storage::get($event->$project->image))
-            ->widen(600)
-            ->limitColors(255)
-            ->encode();
 
-        Storage::put($project->image,(string)$image);
     }
 
     /**
@@ -34,6 +28,12 @@ class OptimizeProjectImage
      */
     public function handle(ProjectSaved $event)
     {
-        //
+        //Optimizar imagen, storage_path para la ruta de la foto.
+        $image = Image::make(Storage::get($event->project->image))
+            ->widen(600)
+            ->limitColors(255)
+            ->encode();
+
+        Storage::put($event->project->image,(string)$image);
     }
 }

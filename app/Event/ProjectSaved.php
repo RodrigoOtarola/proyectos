@@ -13,9 +13,10 @@ use Illuminate\Queue\SerializesModels;
 
 class ProjectSaved
 {
+    public $project;
+
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $project;
 
     /**
      * Create a new event instance.
