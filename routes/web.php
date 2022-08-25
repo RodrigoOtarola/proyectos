@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//imprimir query
+
+DB::listen(function ($query){
+    var_dump($query->sql);;
+});
+
 Route::view('/','home')->name('home');
 
 Route::view('/about','about')->name('about');
