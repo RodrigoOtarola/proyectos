@@ -11,6 +11,6 @@ class Category extends Model
 
     //Relacion modelo projects 1:n, una categoria puede tener muchos proyectos
     public function projects(){
-        return $this->hasMany(Category::class);
+        return $this->hasMany(Project::class);
     }
 }

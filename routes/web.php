@@ -25,6 +25,8 @@ Route::view('/about','about')->name('about');
 
 Route::resource('projects','\App\Http\Controllers\ProjectController');
 
+Route::get('categorias/{category}',[\App\Http\Controllers\CategoryController::class,'show'])->name('categories.show');
+
 Route::view('/contact','contact')->name('contact');
 
 Route::post('contact',[\App\Http\Controllers\MessageController::class,'store']);

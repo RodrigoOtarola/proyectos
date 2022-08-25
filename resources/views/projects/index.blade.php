@@ -34,7 +34,10 @@
 
                             {{--Para mostrar titulo de la categoria--}}
                             @if($project->category_id)
-                                <span class="badge bg-secondary">{{$project->category->name}}</span>
+                                {{--Para realizar filtro por categoria--}}
+                                <a href="{{route('categories.show',$project->category)}}">
+                                    <span class="badge bg-secondary">{{$project->category->name}}</span>
+                                </a>
                             @endif
                         </div>
                     </div>
@@ -49,7 +52,7 @@
 
         </div>
         <div class="mt-4">
-            {{$projects->links('pagination::bootstrap-4')}}
-        </div>
-    </div>
+    {{$projects->links('pagination::bootstrap-4')}}
+</div>
+</div>
 @endsection
