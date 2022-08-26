@@ -9,6 +9,10 @@ class Category extends Model
 {
     use HasFactory;
 
+    public function getRouteKeyName(){
+        return 'title';
+    }
+
     //Relacion modelo projects 1:n, una categoria puede tener muchos proyectos
     public function projects(){
         return $this->hasMany(Project::class);

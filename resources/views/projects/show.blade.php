@@ -16,6 +16,12 @@
                 <div class="bg-white p-5 shadow rounded">
 
                     <h1>{{ $project->title }}</h1>
+                    @if($project->category_id)
+                        {{--Para realizar filtro por categoria--}}
+                        <a href="{{route('categories.show',$project->category)}}">
+                            <span class="badge bg-secondary mb-1">{{$project->category->name}}</span>
+                        </a>
+                    @endif
                     <p class="text-secondary">
                         {{ $project->description }}
                     </p>

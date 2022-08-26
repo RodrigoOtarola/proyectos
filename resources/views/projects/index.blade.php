@@ -5,7 +5,15 @@
 @section('container')
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="display-4 mb-0">Portafolio</h2>
+            @isset($category)
+                <div>
+                    <h2 class="display-4 mb-0">{{$category->name}}</h2>
+                    <a href="{{route('projects.index')}}" class="btn btn-outline-primary btn-sm">Regresar al
+                        portafolio</a>
+                </div>
+            @else
+                <h2 class="display-4 mb-0">Portafolio</h2>
+            @endisset
             @auth()
                 <a class="btn btn-primary" href="{{route('projects.create')}}">Crear proyecto.</a>
             @endauth
@@ -52,7 +60,7 @@
 
         </div>
         <div class="mt-4">
-    {{$projects->links('pagination::bootstrap-4')}}
-</div>
-</div>
+            {{$projects->links('pagination::bootstrap-4')}}
+        </div>
+    </div>
 @endsection
