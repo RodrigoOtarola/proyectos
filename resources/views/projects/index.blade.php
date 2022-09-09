@@ -14,9 +14,12 @@
             @else
                 <h2 class="display-4 mb-0">Portafolio</h2>
             @endisset
-            @auth()
+{{--            @auth()--}}
+{{--                <a class="btn btn-primary" href="{{route('projects.create')}}">Crear proyecto.</a>--}}
+{{--            @endauth--}}
+            @can('create-projects')
                 <a class="btn btn-primary" href="{{route('projects.create')}}">Crear proyecto.</a>
-            @endauth
+            @endcan
         </div>
         <hr>
         <p class="lead text-secondary">Proyectos creados: Lorem ipsum dolor sit amet, consectetur adipisicing elit.

@@ -37,9 +37,11 @@ class ProjectController extends Controller
      */
     public function create()
     {
+
+        $this->authorize('create-projects');
         return view('projects.create', [
             'project' => new Project,
-            'categories' => Category::pluck('name','id')
+            'categories' => Category::pluck('name', 'id')
         ]);
     }
 
@@ -96,8 +98,8 @@ class ProjectController extends Controller
     {
         return view('projects.edit', [
             'project' => $project,
-            'categories' => Category::pluck('name','id')
-            ]);
+            'categories' => Category::pluck('name', 'id')
+        ]);
     }
 
     /**

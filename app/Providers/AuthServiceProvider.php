@@ -25,6 +25,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        //Recibre nombre de regla y una function
+        Gate::define('create-projects',function ($user){
+            return $user->email ==='r.otarola.bass@gmail.com';
+        });
     }
 }
