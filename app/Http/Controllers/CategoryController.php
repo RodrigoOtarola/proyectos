@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -11,6 +12,7 @@ class CategoryController extends Controller
     {
         return view('projects.index',[
             'category'=>$category,
+            'newProject' => new Project,
             'projects'=>$category->projects()->with('category')->latest()->paginate(3)
         ]);
     }

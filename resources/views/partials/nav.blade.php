@@ -8,8 +8,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="nav nav-pills">
-            <ul class="nav nav-pills">
+            <ul class="nav nav-pills ms-auto">
                 {{-- setActive se importa de helper.php y se declara por composer.json en la sección autload y ejecutar composer dumpautoload para compilacion--}}
                 <li class="nav-item"><a class="nav-link {{setActive('home')}}" href="{{route('home')}}">Inicio</a></li>
                 <li class="nav-item"><a class="nav-link {{setActive('about')}}" href="{{route('about')}}">Quienes somos</a></li>

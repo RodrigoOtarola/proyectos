@@ -15,6 +15,7 @@ class ProjectController extends Controller
 
     public function __construct()
     {
+        //Pedira login a exception de index y show
         $this->middleware('auth')->except('index', 'show');
     }
 
@@ -26,6 +27,7 @@ class ProjectController extends Controller
     public function index()
     {
         return view('projects.index', [
+            'newProject' => new Project,
             'projects' => Project::with('category')->latest()->paginate()
         ]);
     }
@@ -38,9 +40,10 @@ class ProjectController extends Controller
     public function create()
     {
 
-        $this->authorize('create-projects');
+        //Politica de acceso
+        $this->authorize('create', $project = new Project);
         return view('projects.create', [
-            'project' => new Project,
+            'project'=>$project,
             'categories' => Category::pluck('name', 'id')
         ]);
     }
@@ -53,7 +56,12 @@ class ProjectController extends Controller
      */
     public function store(SaveProjectRequest $request)
     {
+
+
         $project = new Project($request->validated());
+
+        //Politica de acceso
+        $this->authorize('create', $project);
 
         //Mover imagen de directorio temporal a carpeta del server
         $project->image = $request->file('image')->store('images');
@@ -96,6 +104,9 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        //Politica de acceso
+        $this->authorize('update', $project);
+
         return view('projects.edit', [
             'project' => $project,
             'categories' => Category::pluck('name', 'id')
@@ -111,6 +122,8 @@ class ProjectController extends Controller
      */
     public function update(Project $project, SaveProjectRequest $request)
     {
+        $this->authorize('update', $project);
+
         if ($request->hasFile('image')) {
 
             //Para eliminar imagen anterior si, se actualiza imagen.
@@ -149,6 +162,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        $this->authorize('delete', $project);
+
         Storage::delete($project->image);
 
         $project->delete();

@@ -15,9 +15,11 @@ use Illuminate\Support\Facades\Route;
 
 //imprimir query
 
-DB::listen(function ($query){
+/*DB::listen(function ($query){
     var_dump($query->sql);;
-});
+});*/
+
+Auth::routes();
 
 Route::view('/','home')->name('home');
 
@@ -32,6 +34,6 @@ Route::view('/contact','contact')->name('contact');
 Route::post('contact',[\App\Http\Controllers\MessageController::class,'store']);
 
 //Para ocultar view register.
-Auth::routes(['register'=>false]);
+//Auth::routes(['register'=>false]);
 
 Route::get('/logout',[\App\Http\Controllers\Auth\LoginController::class,'logout'])->name('logout');

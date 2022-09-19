@@ -14,10 +14,12 @@
             @else
                 <h2 class="display-4 mb-0">Portafolio</h2>
             @endisset
-{{--            @auth()--}}
-{{--                <a class="btn btn-primary" href="{{route('projects.create')}}">Crear proyecto.</a>--}}
-{{--            @endauth--}}
-            @can('create-projects')
+            {{--            @auth()--}}
+            {{--                <a class="btn btn-primary" href="{{route('projects.create')}}">Crear proyecto.</a>--}}
+            {{--            @endauth--}}
+
+            {{--Va a verificar la politica que se le entrega por el nombre del modelo, ProjectPolicy@create--}}
+            @can('create',$newProject)
                 <a class="btn btn-primary" href="{{route('projects.create')}}">Crear proyecto.</a>
             @endcan
         </div>
