@@ -67,5 +67,31 @@
         <div class="mt-4">
             {{$projects->links('pagination::bootstrap-4')}}
         </div>
+        @can('view-deleted-projects')
+            <h4>Papelera</h4>
+            <ul class="list-group">
+                @foreach($deletedProjects as $deletedProject)
+                    <li class="list-group-item">
+                        {{$deletedProject->title}}
+
+                        @can('restore',$deletedProject)
+                            <form action="{{route('projects.restore', $deletedProject)}}" method="post" class="d-inline">
+                                @csrf
+                                @method('PATCH')
+                            </form>
+                            <button class="btn btn-info btn-sm">Restaurar</button>
+                        @endcan
+
+                        @can('forceDelete',$deletedProject)
+                            <form action="{{route('projects.forceDelete',$deletedProject)}}" method="post" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+                            <button class="btn btn-danger btn-sm">Eliminar permanentemente</button>
+                        @endcan
+                    </li>
+                @endforeach
+            </ul>
+        @endcan
     </div>
 @endsection

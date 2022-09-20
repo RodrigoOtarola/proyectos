@@ -28,7 +28,8 @@ class ProjectController extends Controller
     {
         return view('projects.index', [
             'newProject' => new Project,
-            'projects' => Project::with('category')->latest()->paginate()
+            'projects' => Project::with('category')->latest()->paginate(),
+            'deletedProjects'=> Project::onlyTrashed()->get(),
         ]);
     }
 
@@ -128,7 +129,7 @@ class ProjectController extends Controller
 
             //Para eliminar imagen anterior si, se actualiza imagen.
 
-            Storage::delete($project->image);
+            //Storage::delete($project->image);
 
             $project->fill($request->validated());
 
@@ -164,10 +165,38 @@ class ProjectController extends Controller
     {
         $this->authorize('delete', $project);
 
-        Storage::delete($project->image);
+        //Storage::delete($project->image);
 
         $project->delete();
 
         return redirect()->route('projects.index')->with('status', 'Proyecto eliminado con exito');
+    }
+
+    public function restore($projectTitle)
+    {
+        $project = Project::withTrashed()->where('title', $projectTitle)->firstOrFail();
+
+        //Autorizacion
+        $this->authorize('restore', $project);
+
+        //Restaurar imagen.
+        $project->restore();
+
+        return redirect()->route('projects.index')->with('status', 'Proyecto restaurado');
+    }
+
+    public function forceDelete($projectTitle)
+    {
+        $project = Project::withTrashed()->whereTitle($projectTitle)->firstOrFail();
+
+        //Autorizacion
+        $this->authorize('forceDelete', $project);
+
+        //Eliminar imagen.
+        Storage::delete($project->image);
+
+        $project->forceDelete();
+
+        return redirect()->route('projects.index')->with('status', 'Proyecto eliminado permanentemente');
     }
 }

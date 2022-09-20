@@ -27,6 +27,12 @@ Route::view('/about','about')->name('about');
 
 Route::resource('projects','\App\Http\Controllers\ProjectController');
 
+//ruta para restaurar
+Route::patch('portafolio/{project}/restore',[\App\Http\Controllers\ProjectController::class,'restore'])->name('projects.restore');
+
+//Ruta para eliminacion permanente
+Route::delete('portafolio/{project}/forceDelete',[\App\Http\Controllers\ProjectController::class,'forceDelete'])->name('projects.forceDelete');
+
 Route::get('categorias/{category}',[\App\Http\Controllers\CategoryController::class,'show'])->name('categories.show');
 
 Route::view('/contact','contact')->name('contact');

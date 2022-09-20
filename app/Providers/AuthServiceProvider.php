@@ -27,5 +27,10 @@ class AuthServiceProvider extends ServiceProvider
 
         //Recibre nombre de regla y una function
         //Gate::define('create-projects','App\Policies\ProjectPolicy@create');
+
+        //Politica para mostrar li.
+        Gate::define('view-deleted-projects',function ($user){
+            return $user->role === 'admin';
+        });
     }
 }

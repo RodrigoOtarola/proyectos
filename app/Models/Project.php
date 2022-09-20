@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Project extends Model
 {
+    use SoftDeletes;//deleted_at para almacenar fecha de eliminacion
+
     use HasFactory;
 
     protected $fillable = ['image','category_id','title','description'];

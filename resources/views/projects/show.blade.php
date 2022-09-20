@@ -44,13 +44,17 @@
                                        href="#"
                                        onclick="document.getElementById('delete-project').submit()"
                                     >Eliminar</a>
-                                    <form id="delete-project"
-                                          class="d-none"
-                                          method="POST" action="{{ route('projects.destroy', $project) }}">
-                                        @csrf @method('DELETE')
-                                    </form>
+
                                 @endcan
                             </div>
+                            {{--Para que bordes del btn se vean bordeados--}}
+                            @can('delete',$project)
+                                <form id="delete-project"
+                                      class="d-none"
+                                      method="POST" action="{{ route('projects.destroy', $project) }}">
+                                    @csrf @method('DELETE')
+                                </form>
+                            @endcan
                         @endauth
                     </div>
                 </div>
