@@ -172,9 +172,9 @@ class ProjectController extends Controller
         return redirect()->route('projects.index')->with('status', 'Proyecto eliminado con exito');
     }
 
-    public function restore($projectTitle)
+    public function restore($projectId)
     {
-        $project = Project::withTrashed()->where('title', $projectTitle)->firstOrFail();
+        $project = Project::withTrashed()->whereId($projectId)->firstOrFail();
 
         //Autorizacion
         $this->authorize('restore', $project);

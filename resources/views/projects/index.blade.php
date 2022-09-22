@@ -75,19 +75,22 @@
                         {{$deletedProject->title}}
 
                         @can('restore',$deletedProject)
-                            <form action="{{route('projects.restore', $deletedProject)}}" method="post" class="d-inline">
+                            <form action="{{route('projects.restore', $deletedProject)}}" method="post"
+                                  class="d-inline">
                                 @csrf
                                 @method('PATCH')
+                                <button class="btn btn-info btn-sm">Restaurar</button>
                             </form>
-                            <button class="btn btn-info btn-sm">Restaurar</button>
                         @endcan
 
                         @can('forceDelete',$deletedProject)
-                            <form action="{{route('projects.forceDelete',$deletedProject)}}" method="post" class="d-inline">
+                            <form action="{{route('projects.forceDelete',$deletedProject)}}" method="post"
+                                  class="d-inline"
+                                  onsubmit="return confirm('Esta acción es irreversible. ¿Seguro quieres eliminar')">
                                 @csrf
                                 @method('DELETE')
+                                <button class="btn btn-danger btn-sm">Eliminar permanentemente</button>
                             </form>
-                            <button class="btn btn-danger btn-sm">Eliminar permanentemente</button>
                         @endcan
                     </li>
                 @endforeach
